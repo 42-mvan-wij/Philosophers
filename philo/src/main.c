@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/27 12:25:00 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2022/06/28 11:31:59 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2022/06/28 17:50:39 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <stdio.h>
 #include "util.h"
 #include "phil.h"
+#include <pthread.h>
 
 // FIXME: tmp
 #include "../../libft/libft.h"
@@ -56,6 +57,16 @@ void	*ph_malloc(size_t size)
 	if (ptr == NULL)
 		set_err(E_MALLOC_FAIL);
 	return (ptr);
+}
+
+ssize_t	ph_write(int fd, const void *buf, size_t nbyte)
+{
+	ssize_t	ret;
+
+	ret = write(fd, buf, nbyte);
+	if (ret < 0)
+		set_err(E_WRITE_FAIL);
+	return (ret);
 }
 
 t_status	check_args(int argc, t_data *data)
@@ -107,6 +118,7 @@ void	print_err(void)
 	[E_TOO_MANY_ARGS] = "Error: too many arguments supplied, expected at most 5",
 	[E_EXPECTED_INTEGER] = "Error: expected integer",
 	[E_MALLOC_FAIL] = "Error: Malloc failed",
+	[E_WRITE_FAIL] = "Error: Write failed",
 	[E_PHIL_TOO_LITTLE] = "Error: Too few philosophers, must be at least 1",
 	[E_DIE_TOO_LITTLE] = "Error: Time to die cannot be negative",
 	[E_EAT_TOO_LITTLE] = "Error: Time to eat cannot be negative",
@@ -118,12 +130,26 @@ must be at least 1",
 	printf("%s\n", err_text[get_err()]);
 }
 
+void *start_proc(void *start_proc_arg)
+{
+
+}
+
+t_status	do_phil(t_data *data)
+{
+	pthread_t	id;
+	pthread_create(&id, NULL, start_proc, start_proc_arg);
+	pthread_join(id, NULL);
+	return (SUCCESS);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	data;
 
-	if (parse_args(argc, argv, &data) != SUCCESS)
+	if (parse_args(argc, argv, &data) != SUCCESS || do_phil(&data) != SUCCESS)
 	{
+		return (get_err());
 		print_err();
 		return (EXIT_FAILURE);
 	}

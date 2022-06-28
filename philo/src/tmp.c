@@ -9,7 +9,6 @@ void	print_err(void);
 
 __attribute__((constructor))
 void tmp_test_errs() {
-	printf("hello\n");
 	int old = dup(STDOUT_FILENO);
 	int dev_null = open("/dev/null", O_WRONLY);
 	fflush(NULL);

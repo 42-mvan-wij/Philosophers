@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/28 11:21:23 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2022/06/28 11:21:56 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2022/06/28 11:39:32 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef enum e_status
 	E_TOO_MANY_ARGS,
 	E_EXPECTED_INTEGER,
 	E_MALLOC_FAIL,
+	E_WRITE_FAIL,
 	E_PHIL_TOO_LITTLE,
 	E_DIE_TOO_LITTLE,
 	E_EAT_TOO_LITTLE,
