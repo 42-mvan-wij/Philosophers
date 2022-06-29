@@ -14,12 +14,12 @@ void tmp_test_errs() {
 	fflush(NULL);
 	dup2(dev_null, STDOUT_FILENO);
 	for (int i = 0; i < tmp_status_end; i++) {
-		if (i == SUCCESS)
+		if (i == OK)
 			continue ;
 		set_err(i);
 		print_err();
 	}
 	fflush(NULL);
 	dup2(old, STDOUT_FILENO);
-	set_err(SUCCESS);
+	set_err(OK);
 }

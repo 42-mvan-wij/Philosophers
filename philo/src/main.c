@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/27 12:25:00 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2022/06/28 17:50:39 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2022/06/29 14:06:46 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 static t_status	*get_err_ptr(void)
 {
-	static t_status	err = SUCCESS;
+	static t_status	err = OK;
 
 	return (&err);
 }
@@ -39,35 +39,7 @@ t_status	get_err(void)
 	return (*get_err_ptr());
 }
 
-bool	err_is_set(void)
-{
-	return (get_err() != SUCCESS);
-}
 
-bool	is_err(t_status err)
-{
-	return (err != SUCCESS);
-}
-
-void	*ph_malloc(size_t size)
-{
-	void	*ptr;
-
-	ptr = malloc(size);
-	if (ptr == NULL)
-		set_err(E_MALLOC_FAIL);
-	return (ptr);
-}
-
-ssize_t	ph_write(int fd, const void *buf, size_t nbyte)
-{
-	ssize_t	ret;
-
-	ret = write(fd, buf, nbyte);
-	if (ret < 0)
-		set_err(E_WRITE_FAIL);
-	return (ret);
-}
 
 t_status	check_args(int argc, t_data *data)
 {
@@ -81,7 +53,7 @@ t_status	check_args(int argc, t_data *data)
 		return (set_err(E_SLEEP_TOO_LITTLE));
 	if (argc - 1 == 5 && data->num_eat < 1)
 		return (set_err(E_NUM_EAT_TOO_LITTLE));
-	return (SUCCESS);
+	return (OK);
 }
 
 t_status	parse_args(int argc, char **argv, t_data *data)
@@ -107,12 +79,13 @@ t_status	parse_args(int argc, char **argv, t_data *data)
 	return (check_args(argc, data));
 }
 
+// FIXME: tmp
 #include <assert.h>
 
 void	print_err(void)
 {
 	static char	*err_text[] = {
-	[SUCCESS] = "LOL, get prankt",
+	[OK] = "LOL, get prankt",
 	[ERROR] = "Unknown error occurred",
 	[E_TOO_FEW_ARGS] = "Error: too few arguments supplied, expected at least 4",
 	[E_TOO_MANY_ARGS] = "Error: too many arguments supplied, expected at most 5",
@@ -135,21 +108,20 @@ void *start_proc(void *start_proc_arg)
 
 }
 
-t_status	do_phil(t_data *data)
+t_status	run_all_phils(t_data *data)
 {
 	pthread_t	id;
 	pthread_create(&id, NULL, start_proc, start_proc_arg);
 	pthread_join(id, NULL);
-	return (SUCCESS);
+	return (OK);
 }
 
 int	main(int argc, char **argv)
 {
 	t_data	data;
 
-	if (parse_args(argc, argv, &data) != SUCCESS || do_phil(&data) != SUCCESS)
+	if (parse_args(argc, argv, &data) != OK || run_all_phils(&data) != OK)
 	{
-		return (get_err());
 		print_err();
 		return (EXIT_FAILURE);
 	}

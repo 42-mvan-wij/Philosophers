@@ -13,11 +13,13 @@
 #ifndef PHIL_H
 # define PHIL_H
 
-# define BUBBLE != SUCCESS ||
+
+// FIXME: tmp
+# define BUBBLE != OK ||
 
 typedef enum e_status
 {
-	SUCCESS,
+	OK,
 	ERROR,
 	E_TOO_FEW_ARGS,
 	E_TOO_MANY_ARGS,
@@ -30,7 +32,7 @@ typedef enum e_status
 	E_SLEEP_TOO_LITTLE,
 	E_NUM_EAT_TOO_LITTLE,
 
-	//tmp
+	// FIXME: tmp
 	tmp_status_end
 }	t_status;
 
