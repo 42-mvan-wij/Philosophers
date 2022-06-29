@@ -120,6 +120,27 @@ t_status	create_fork_mutexes(t_data *data)
 	return (OK);
 }
 
+t_status	create_phils(t_data *data)
+{
+	int	i;
+
+	data->phils = malloc(sizeof(t_phil) * data->num_phil);
+	if (data->phils == NULL)
+		return (set_err(E_MALLOC_FAIL));
+	i = 0;
+	while (i < data->num_phil)
+	{
+		data->phils[i].seat = i + 1;
+		data->phils[i].times_eaten = 0;
+		data->phils[i].left = &data->fork_mutexes[i];
+		data->phils[i].right = &data->fork_mutexes[(i + 1) % data->num_phil];
+		data->phils[i].soul = NULL;
+		data->phils[i].data = data;
+		i++;
+	}
+	return (OK);
+}
+
 void	*start_proc(void *_phil)
 {
 }
@@ -137,7 +158,7 @@ int	main(int argc, char **argv)
 	t_data	data;
 
 	if (parse_args(argc, argv, &data) != OK || create_fork_mutexes(&data) != OK
-		|| run_all_phils(&data) != OK)
+		|| create_phils(&data) != OK || run_all_phils(&data) != OK)
 	{
 		print_err();
 		return (EXIT_FAILURE);

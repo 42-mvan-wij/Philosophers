@@ -44,6 +44,17 @@ typedef struct s_data
 	int				time_to_sleep;
 	int				num_eat;
 	pthread_mutex_t	*fork_mutexes;
+	struct s_phil	*phils;
 }	t_data;
+
+typedef struct s_phil
+{
+	int				seat;
+	int				times_eaten;
+	pthread_mutex_t	*left;
+	pthread_mutex_t	*right;
+	pthread_t		soul;
+	t_data			*data;
+}	t_phil;
 
 #endif
