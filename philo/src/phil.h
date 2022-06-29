@@ -6,13 +6,15 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/28 11:21:23 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2022/06/28 11:39:32 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2022/06/29 14:05:58 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHIL_H
 # define PHIL_H
 
+# include <pthread.h>
+# include <stdbool.h>
 
 // FIXME: tmp
 # define BUBBLE != OK ||
@@ -31,6 +33,7 @@ typedef enum e_status
 	E_EAT_TOO_LITTLE,
 	E_SLEEP_TOO_LITTLE,
 	E_NUM_EAT_TOO_LITTLE,
+	E_THREAD_FAIL,
 
 	// FIXME: tmp
 	tmp_status_end
@@ -45,6 +48,9 @@ typedef struct s_data
 	int				num_eat;
 	pthread_mutex_t	*fork_mutexes;
 	struct s_phil	*phils;
+	pthread_mutex_t	global_mutex;
+	bool			pthread_error;
+	bool			start;
 }	t_data;
 
 typedef struct s_phil
