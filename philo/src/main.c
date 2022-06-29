@@ -103,9 +103,25 @@ must be at least 1",
 	printf("%s\n", err_text[get_err()]);
 }
 
-void *start_proc(void *start_proc_arg)
+t_status	create_fork_mutexes(t_data *data)
 {
+	int	i;
 
+	data->fork_mutexes = malloc(sizeof(pthread_mutex_t) * data->num_phil);
+	if (data->fork_mutexes == NULL)
+		return (set_err(E_MALLOC_FAIL));
+	i = 0;
+	while (i < data->num_phil)
+	{
+		if (pthread_mutex_init(&data->fork_mutexes[i], NULL) != 0)
+			return (set_err(E_MALLOC_FAIL));
+		i++;
+	}
+	return (OK);
+}
+
+void	*start_proc(void *_phil)
+{
 }
 
 t_status	run_all_phils(t_data *data)
@@ -120,7 +136,8 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 
-	if (parse_args(argc, argv, &data) != OK || run_all_phils(&data) != OK)
+	if (parse_args(argc, argv, &data) != OK || create_fork_mutexes(&data) != OK
+		|| run_all_phils(&data) != OK)
 	{
 		print_err();
 		return (EXIT_FAILURE);

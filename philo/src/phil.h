@@ -38,11 +38,12 @@ typedef enum e_status
 
 typedef struct s_data
 {
-	int	num_phil;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	num_eat;
+	int				num_phil;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				num_eat;
+	pthread_mutex_t	*fork_mutexes;
 }	t_data;
 
 #endif
