@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/28 11:21:23 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2022/06/29 14:05:58 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2022/07/21 14:05:05 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <pthread.h>
 # include <stdbool.h>
+# include <sys/time.h>
 
 // FIXME: tmp
 # define BUBBLE != OK ||
@@ -51,6 +52,8 @@ typedef struct s_data
 	pthread_mutex_t	global_mutex;
 	bool			pthread_error;
 	bool			start;
+	bool			stop;
+	struct timeval	start_time;
 }	t_data;
 
 typedef struct s_phil
@@ -61,6 +64,8 @@ typedef struct s_phil
 	pthread_mutex_t	*right;
 	pthread_t		soul;
 	t_data			*data;
+	int				time_of_last_eat;
+	pthread_mutex_t	personal_lock;
 }	t_phil;
 
 #endif

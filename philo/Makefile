@@ -30,12 +30,12 @@ LIBFT		:=
 MINILIBX	:=
 
 CC			:= cc
-CFLAGS		+= -Wall -Wextra -Werror $(if $(DEBUG), -g3) $(if $(SANITIZE), -fsanitize=address -g3)
+CFLAGS		+= -Wall -Wextra -Werror -O3 $(if $(DEBUG), -g3) $(if $(SANITIZE), -fsanitize=address -g3)
 
 ################################################################################
 
 USER_LIBS +=
-SYSTEM_LIBS +=
+SYSTEM_LIBS += pthread
 FRAMEWORKS +=
 HEADERS := src/phil.h src/util/util.h
 SOURCES := src/main.c src/util/ft_atoi.c
@@ -57,13 +57,14 @@ endif
 OBJDIR := obj
 OBJECTS := $(addprefix $(OBJDIR)/, $(SOURCES:c=o))
 INCLUDE_FLAGS += $(addprefix -I, $(sort $(dir $(HEADERS))))
-LIB_FLAGS += $(addprefix -L, $(sort $(dir $(USER_LIBS)))) $(addprefix -l, $(SYSTEM_LIBS) $(patsubst lib%,%,$(basename $(notdir $(USER_LIBS))))) $(addprefix -framework , $(FRAMEWORKS))
+LIB_DIRS += $(addprefix -L, $(sort $(dir $(USER_LIBS))))
+LIB_LOADS += $(addprefix -l, $(sort $(SYSTEM_LIBS)) $(patsubst lib%,%,$(sort $(basename $(notdir $(USER_LIBS)))))) $(addprefix -framework , $(sort $(FRAMEWORKS)))
 
 export CFLAGS := $(sort $(CFLAGS))
-export LIB_FLAGS := $(LIB_FLAGS)
+export LIB_FLAGS := $(sort $(LIB_DIRS)) $(sort $(LIB_LOADS))
 
 DATA_FILE := .make_data.txt
-MAKE_DATA := $(CFLAGS) $(LIB_FLAGS) $(INCLUDE_FLAGS) $(sort $(OBJECTS))
+MAKE_DATA := $(shell uname) $(CFLAGS) $(LIB_FLAGS) $(INCLUDE_FLAGS) $(sort $(OBJECTS))
 ifneq ($(shell echo $(MAKE_DATA)), $(shell cat "$(DATA_FILE)" 2> /dev/null))
 PRE_RULES := clean
 endif
