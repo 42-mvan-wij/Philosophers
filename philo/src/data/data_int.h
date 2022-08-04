@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   util.h                                             :+:    :+:            */
+/*   data_int.h                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/06/27 16:08:28 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2022/06/27 16:09:24 by mvan-wij      ########   odam.nl         */
+/*   Created: 2022/08/04 13:07:48 by mvan-wij      #+#    #+#                 */
+/*   Updated: 2022/08/04 13:42:49 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTIL_H
-# define UTIL_H
+#ifndef DATA_INT_H
+# define DATA_INT_H
 
-# include <stdbool.h>
+# include <pthread.h>
+# include "../structs.h"
 
-int		ft_atoi(const char *str, bool *had_overflow);
-bool	ft_atoi_strict(char *str, int *result_ptr, bool *had_overflow);
+void		free_fork_mutexes(pthread_mutex_t **fork_mutexes,
+				int forks_created);
+t_status	create_fork_mutexes(t_data *data);
+void		free_phils(t_phil **phils, int phils_created);
+t_status	create_phils(t_data *data);
+t_status	parse_args(int argc, char **argv, t_data *data);
 
 #endif

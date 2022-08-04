@@ -1,8 +1,8 @@
-#include "phil.h"
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdio.h>
+#include "./structs.h"
 
 t_status	set_err(t_status err);
 void	print_err(void);

@@ -1,24 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   phil.h                                             :+:    :+:            */
+/*   error_struct.h                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/06/28 11:21:23 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2022/07/21 14:05:05 by mvan-wij      ########   odam.nl         */
+/*   Created: 2022/08/04 12:37:22 by mvan-wij      #+#    #+#                 */
+/*   Updated: 2022/08/04 12:37:39 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHIL_H
-# define PHIL_H
-
-# include <pthread.h>
-# include <stdbool.h>
-# include <sys/time.h>
-
-// FIXME: tmp
-# define BUBBLE != OK ||
+#ifndef ERROR_STRUCT_H
+# define ERROR_STRUCT_H
 
 typedef enum e_status
 {
@@ -39,33 +32,5 @@ typedef enum e_status
 	// FIXME: tmp
 	tmp_status_end
 }	t_status;
-
-typedef struct s_data
-{
-	int				num_phil;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				num_eat;
-	pthread_mutex_t	*fork_mutexes;
-	struct s_phil	*phils;
-	pthread_mutex_t	global_mutex;
-	bool			pthread_error;
-	bool			start;
-	bool			stop;
-	struct timeval	start_time;
-}	t_data;
-
-typedef struct s_phil
-{
-	int				seat;
-	int				times_eaten;
-	pthread_mutex_t	*left;
-	pthread_mutex_t	*right;
-	pthread_t		soul;
-	t_data			*data;
-	int				time_of_last_eat;
-	pthread_mutex_t	personal_lock;
-}	t_phil;
 
 #endif
