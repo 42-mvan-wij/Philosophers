@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/27 16:08:28 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2022/08/04 13:37:45 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2022/08/09 11:13:14 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,7 @@ char		*ft_itob(int64_t nbr, char *res, size_t res_size);
 void		print_msg_unchecked(t_phil *phil, char *msg);
 void		print_msg(t_phil *phil, char *msg);
 
-void		msleep(unsigned int ms);
-void		msleep2(unsigned int ms, t_data *data);
-void		msleep3(unsigned int ms);
+void		msleep(unsigned int ms, t_data *data);
 
 long		get_current_timestamp(t_data *data);
 
