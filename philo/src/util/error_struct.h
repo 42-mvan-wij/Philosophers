@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/04 12:37:22 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2022/08/04 12:37:39 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2022/08/09 11:10:42 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,6 @@ typedef enum e_status
 	E_SLEEP_TOO_LITTLE,
 	E_NUM_EAT_TOO_LITTLE,
 	E_THREAD_FAIL,
-
-	// FIXME: tmp
-	tmp_status_end
 }	t_status;
 
 #endif

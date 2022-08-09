@@ -6,14 +6,12 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/04 12:20:41 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2022/08/04 13:55:16 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2022/08/09 11:11:07 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "../structs.h"
-
-#include <assert.h> // FIXME: TMP
 
 static t_status	*get_err_ptr(void)
 {
@@ -58,7 +56,7 @@ void	print_err(void)
 		"must be at least 1",
 	[E_THREAD_FAIL] = "Error: Failed to create thread",
 	};
-	assert(err_text[get_err()] != NULL); // FIXME: tmp
+
 	printf("%s\n", err_text[get_err()]);
 	if (should_print_usage_text(get_err()))
 		printf("\tUsage: ./philo <number of philosophers> <time to die> "
