@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/04 12:22:10 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2022/08/09 11:12:20 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2022/08/09 11:15:12 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static t_status	fill_phil(t_phil *phil, int i, t_data *data)
 	phil->time_of_last_eat = 0;
 	if (pthread_mutex_init(&phil->personal_lock, NULL) != 0)
 		return (set_err(E_MALLOC_FAIL));
+	return (OK);
 }
 
 t_status	create_phils(t_data *data)
