@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/04 12:27:16 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2022/08/04 13:34:18 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2022/08/09 11:13:14 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static bool	should_stop(t_data *data)
 static void	run_phil(t_phil *phil)
 {
 	if (phil->seat % 2 == 0)
-		msleep2(phil->data->time_to_eat / 2, phil->data);
+		msleep(phil->data->time_to_eat / 2, phil->data);
 	while (true)
 	{
 		think_phil(phil);

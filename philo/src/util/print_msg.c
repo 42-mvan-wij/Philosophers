@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/04 12:29:42 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2022/08/08 13:09:53 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2022/08/09 11:12:09 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,10 @@ static void	print_msg_internal(t_phil *phil, char *msg, bool check)
 {
 	char		buff[128];
 	const long	timestamp = get_current_timestamp(phil->data);
-	// long		timestamp2;
 	char		*buff_ptr;
 
 	buff_ptr = buff;
-	// buff_ptr = append("[", buff_ptr, 128 - (buff_ptr - buff));
 	buff_ptr = ft_itob(timestamp, buff_ptr, 128 - (buff_ptr - buff));
-	// buff_ptr = append(" - ", buff_ptr, 128 - (buff_ptr - buff));
-	// timestamp2 = get_current_timestamp(phil->data);
-	// buff_ptr = ft_itob(timestamp2, buff_ptr, 128 - (buff_ptr - buff));
-	// buff_ptr = append("]", buff_ptr, 128 - (buff_ptr - buff));
 	buff_ptr = append(" ", buff_ptr, 128 - (buff_ptr - buff));
 	buff_ptr = ft_itob(phil->seat, buff_ptr, 128 - (buff_ptr - buff));
 	buff_ptr = append(" ", buff_ptr, 128 - (buff_ptr - buff));
