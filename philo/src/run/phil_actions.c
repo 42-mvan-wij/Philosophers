@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/04 12:27:05 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2022/08/09 11:13:14 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2022/08/22 12:01:58 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	eat_phil(t_phil *phil)
 void	think_phil(t_phil *phil)
 {
 	print_msg(phil, "is thinking");
+	if (phil->data->num_phil % 2 == 1)
+		msleep(5, phil->data);
 }
 
 void	sleep_phil(t_phil *phil)
