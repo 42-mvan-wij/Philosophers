@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/04 12:32:17 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2022/08/09 11:00:20 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2022/08/22 12:00:01 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,9 @@ void	monitor_phils(t_data *data)
 	{
 		check_death_and_eats(data, &ok_eats, &kill);
 		if (kill != NULL || ok_eats)
+		{
 			stop(kill, data);
+			break ;
+		}
 	}
 }
