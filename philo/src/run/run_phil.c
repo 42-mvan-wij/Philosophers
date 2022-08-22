@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/04 12:27:16 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2022/08/09 11:13:14 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2022/08/22 12:38:39 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,24 @@ static void	run_phil(t_phil *phil)
 		msleep(phil->data->time_to_eat / 2, phil->data);
 	while (true)
 	{
-		think_phil(phil);
-		if (should_stop(phil->data))
-			break ;
 		eat_phil(phil);
 		if (should_stop(phil->data))
 			break ;
 		sleep_phil(phil);
 		if (should_stop(phil->data))
 			break ;
+		think_phil(phil);
+		if (should_stop(phil->data))
+			break ;
 	}
 	return ;
+}
+
+static void	run_lonely_phil(t_phil *phil)
+{
+	pthread_mutex_lock(phil->left);
+	print_msg(phil, "has taken a fork");
+	pthread_mutex_unlock(phil->left);
 }
 
 void	*start_phil(void *_phil)
@@ -63,6 +70,9 @@ void	*start_phil(void *_phil)
 		pthread_mutex_unlock(&phil->data->global_mutex);
 	}
 	pthread_mutex_unlock(&phil->data->global_mutex);
-	run_phil(phil);
+	if (phil->data->num_phil == 1)
+		run_lonely_phil(phil);
+	else
+		run_phil(phil);
 	return (NULL);
 }
