@@ -31,7 +31,7 @@ MINILIBX	:=
 MALLOCATOR	:= ../../../Personal/ft_mallocator/libmallocator.a
 
 CC			:= cc
-CFLAGS		+= -Wall -Wextra -Werror -O3 $(if $(DEBUG), -g3) $(if $(SANITIZE), -fsanitize=address -g3)
+CFLAGS		+= -Wall -Wextra -Werror -Ofast $(if $(DEBUG), -g3) $(if $(SANITIZE), -fsanitize=address -g3)
 
 ################################################################################
 
