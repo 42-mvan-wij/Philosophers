@@ -6,7 +6,7 @@
 #    By: mvan-wij <mvan-wij@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/06/27 15:19:55 by mvan-wij      #+#    #+#                  #
-#    Updated: 2022/08/09 11:11:01 by mvan-wij      ########   odam.nl          #
+#    Updated: 2022/09/01 13:12:41 by mvan-wij      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,8 +64,10 @@ SOURCES += \
 	src/data/phils.c
 
 SOURCES += \
+	src/run/actions/eat.c	\
+	src/run/actions/sleep.c	\
+	src/run/actions/think.c	\
 	src/run/monitor.c		\
-	src/run/phil_actions.c	\
 	src/run/run_all_phils.c	\
 	src/run/run_phil.c
 

@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/04 12:29:42 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2022/08/09 11:12:09 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2022/09/01 12:57:33 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "../structs.h"
 #include "./utils.h"
 
-static void	print_msg_internal(t_phil *phil, char *msg, bool check)
+static bool	print_msg_internal(t_phil *phil, char *msg, bool check)
 {
 	char		buff[128];
 	const long	timestamp = get_current_timestamp(phil->data);
@@ -28,18 +28,21 @@ static void	print_msg_internal(t_phil *phil, char *msg, bool check)
 	buff_ptr = append(" ", buff_ptr, 128 - (buff_ptr - buff));
 	buff_ptr = append(msg, buff_ptr, 128 - (buff_ptr - buff));
 	buff_ptr = append("\n", buff_ptr, 128 - (buff_ptr - buff));
-	pthread_mutex_lock(&phil->data->global_mutex);
+	if (pthread_mutex_lock(&phil->data->global_mutex) != 0)
+		return (false);
 	if (!check || !phil->data->stop)
 		write(STDOUT_FILENO, buff, buff_ptr - buff);
-	pthread_mutex_unlock(&phil->data->global_mutex);
+	if (pthread_mutex_unlock(&phil->data->global_mutex) != 0)
+		return (false);
+	return (true);
 }
 
-void	print_msg_unchecked(t_phil *phil, char *msg)
+bool	print_msg_unchecked(t_phil *phil, char *msg)
 {
-	print_msg_internal(phil, msg, false);
+	return (print_msg_internal(phil, msg, false));
 }
 
-void	print_msg(t_phil *phil, char *msg)
+bool	print_msg(t_phil *phil, char *msg)
 {
-	print_msg_internal(phil, msg, true);
+	return (print_msg_internal(phil, msg, true));
 }
