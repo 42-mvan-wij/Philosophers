@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/04 12:27:16 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2022/08/22 12:38:39 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2022/09/01 13:07:45 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,40 +16,34 @@
 #include "../util/utils.h"
 #include "./run_int.h"
 
-static bool	should_stop(t_data *data)
+static bool	save_stop(t_data *data, bool *res)
 {
-	bool	stop;
-
-	pthread_mutex_lock(&data->global_mutex);
-	stop = data->stop;
-	pthread_mutex_unlock(&data->global_mutex);
-	return (stop);
+	if (pthread_mutex_lock(&data->global_mutex) != 0)
+		return (false);
+	*res = data->stop;
+	if (pthread_mutex_unlock(&data->global_mutex) != 0)
+		return (false);
+	return (true);
 }
 
 static void	run_phil(t_phil *phil)
 {
+	bool	stop;
+
+	stop = false;
 	if (phil->seat % 2 == 0)
 		msleep(phil->data->time_to_eat / 2, phil->data);
 	while (true)
 	{
-		eat_phil(phil);
-		if (should_stop(phil->data))
-			break ;
-		sleep_phil(phil);
-		if (should_stop(phil->data))
-			break ;
-		think_phil(phil);
-		if (should_stop(phil->data))
+		if (!eat_phil(phil) \
+		|| !save_stop(phil->data, &stop) || stop \
+		|| !sleep_phil(phil) \
+		|| !save_stop(phil->data, &stop) || stop \
+		|| !think_phil(phil) \
+		|| !save_stop(phil->data, &stop) || stop)
 			break ;
 	}
 	return ;
-}
-
-static void	run_lonely_phil(t_phil *phil)
-{
-	pthread_mutex_lock(phil->left);
-	print_msg(phil, "has taken a fork");
-	pthread_mutex_unlock(phil->left);
 }
 
 void	*start_phil(void *_phil)
@@ -70,9 +64,6 @@ void	*start_phil(void *_phil)
 		pthread_mutex_unlock(&phil->data->global_mutex);
 	}
 	pthread_mutex_unlock(&phil->data->global_mutex);
-	if (phil->data->num_phil == 1)
-		run_lonely_phil(phil);
-	else
-		run_phil(phil);
+	run_phil(phil);
 	return (NULL);
 }

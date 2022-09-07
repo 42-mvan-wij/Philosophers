@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/27 16:08:28 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2022/08/09 11:13:14 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2022/09/01 12:54:47 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void		print_err(void);
 
 char		*ft_itob(int64_t nbr, char *res, size_t res_size);
 
-void		print_msg_unchecked(t_phil *phil, char *msg);
-void		print_msg(t_phil *phil, char *msg);
+bool		print_msg_unchecked(t_phil *phil, char *msg);
+bool		print_msg(t_phil *phil, char *msg);
 
 void		msleep(unsigned int ms, t_data *data);
 
