@@ -6,7 +6,7 @@
 #    By: mvan-wij <mvan-wij@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/06/27 15:19:55 by mvan-wij      #+#    #+#                  #
-#    Updated: 2022/09/01 13:12:41 by mvan-wij      ########   odam.nl          #
+#    Updated: 2022/09/07 12:13:44 by mvan-wij      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,6 @@ NAME_BONUS	:= philo
 
 LIBFT		:=
 MINILIBX	:=
-MALLOCATOR	:= ../../../Personal/ft_mallocator/libmallocator.a
 
 CC			:= cc
 CFLAGS		+= -Wall -Wextra -Werror -Ofast $(if $(DEBUG), -g3) $(if $(SANITIZE), -fsanitize=address -g3)
@@ -138,8 +137,6 @@ fclean: clean
 	@$(call print_prefix,"$(PROJECT)","$@")
 	rm -f $(NAME)
 	@$(call print_prefix,"$(PROJECT)","$@")
-	rm -f malloc_test
-	@$(call print_prefix,"$(PROJECT)","$@")
 	rm -f $(DATA_FILE)
 
 re: fclean all
@@ -148,22 +145,5 @@ run: $(NAME)
 	@./$(NAME) $(ARGS)
 
 .PHONY: all debug clean fclean re sources
-
-ifdef DEBUG
-
-malloc_test: $(PRE_RULES) $(MALLOCATOR) $(OBJECTS)
-	@echo $(MAKE_DATA) > $(DATA_FILE)
-	$(CC) $(CFLAGS) -fsanitize=undefined -rdynamic $(OBJECTS) -L../../../Personal/ft_mallocator -lmallocator -ldl $(LIB_FLAGS) -o $@
-
-else
-
-.PHONY: malloc_test
-malloc_test:
-	$(MAKE) $@ DEBUG=1
-
-endif
-
-$(MALLOCATOR):
-	$(MAKE) -C $(dir $(MALLOCATOR))
 
 ################################################################################
